@@ -34,6 +34,19 @@ def add_task(tasks):
     print("Task added successfully!")
 
 
+def view_tasks(tasks):
+    """Display all tasks with their current status."""
+    if not tasks:
+        print("\nNo tasks found.")
+        return
+
+    print("\n===== YOUR TASKS =====")
+
+    for index, task in enumerate(tasks, start=1):
+        status = "Completed" if task.completed else "Pending"
+        print(f"{index}. {task.title} [{status}]")
+
+
 def main():
     """Run the main To-Do application."""
     tasks = []
@@ -47,7 +60,7 @@ def main():
             add_task(tasks)
 
         elif choice == "2":
-            print("View Tasks selected")
+            view_tasks(tasks)
 
         elif choice == "3":
             print("Mark Task Complete selected")
