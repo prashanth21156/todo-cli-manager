@@ -47,6 +47,34 @@ def view_tasks(tasks):
         print(f"{index}. {task.title} [{status}]")
 
 
+def complete_task(tasks):
+    """Mark a selected task as completed."""
+    if not tasks:
+        print("\nNo tasks found.")
+        return
+
+    view_tasks(tasks)
+
+    try:
+        task_number = int(input("Enter task number to complete: ").strip())
+    except ValueError:
+        print("Invalid input. Please enter a valid task number.")
+        return
+
+    if task_number < 1 or task_number > len(tasks):
+        print("Invalid task number.")
+        return
+
+    task = tasks[task_number - 1]
+
+    if task.completed:
+        print("Task is already completed.")
+        return
+
+    task.mark_completed()
+    print("Task marked as completed!")
+
+
 def main():
     """Run the main To-Do application."""
     tasks = []
@@ -63,7 +91,7 @@ def main():
             view_tasks(tasks)
 
         elif choice == "3":
-            print("Mark Task Complete selected")
+            complete_task(tasks)
 
         elif choice == "4":
             print("Remove Task selected")
