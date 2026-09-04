@@ -1,3 +1,15 @@
+class Task:
+    """Represent a single to-do task."""
+
+    def __init__(self, title):
+        self.title = title
+        self.completed = False
+
+    def mark_completed(self):
+        """Mark the task as completed."""
+        self.completed = True
+
+
 def display_menu():
     """Display the main menu options."""
     print("\n===== TO-DO LIST MANAGER =====")
@@ -17,15 +29,20 @@ def main():
 
         if choice == "1":
             print("Add Task selected")
+
         elif choice == "2":
             print("View Tasks selected")
+
         elif choice == "3":
             print("Mark Task Complete selected")
+
         elif choice == "4":
             print("Remove Task selected")
+
         elif choice == "5":
             print("Thank you for using the To-Do List Manager!")
             break
+
         else:
             print("Invalid choice. Please enter a number from 1 to 5.")
 
