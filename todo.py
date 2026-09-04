@@ -20,15 +20,31 @@ def display_menu():
     print("5. Exit")
 
 
+def add_task(tasks):
+    """Ask the user for a task and add it to the task list."""
+    title = input("Enter task description: ").strip()
+
+    if not title:
+        print("Task description cannot be empty.")
+        return
+
+    task = Task(title)
+    tasks.append(task)
+
+    print("Task added successfully!")
+
+
 def main():
     """Run the main To-Do application."""
+    tasks = []
+
     while True:
         display_menu()
 
         choice = input("Enter your choice: ").strip()
 
         if choice == "1":
-            print("Add Task selected")
+            add_task(tasks)
 
         elif choice == "2":
             print("View Tasks selected")
