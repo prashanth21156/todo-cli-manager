@@ -28,6 +28,8 @@ The application allows users to add, view, complete, and remove tasks.
 * Handle invalid task numbers
 * Prevent empty task descriptions
 * Display clear success and error messages
+* Assign each task a unique ID
+* Save tasks to `tasks.json` and load them at startup
 * Automated unit testing using Python's built-in `unittest` module
 
 ## Technologies Used
@@ -45,7 +47,11 @@ No external Python packages are required.
 ```text
 todo-cli-manager/
 │
-├── todo.py
+├── models.py
+├── todo_manager.py
+├── main.py
+├── tasks.json
+├── requirements.txt
 ├── test_todo.py
 ├── README.md
 └── .gitignore
@@ -55,7 +61,11 @@ todo-cli-manager/
 
 | File           | Description                                                                  |
 | -------------- | ---------------------------------------------------------------------------- |
-| `todo.py`      | Main application containing the To-Do List functionality                     |
+| `models.py`    | Defines the task model and JSON serialization                              |
+| `todo_manager.py` | Provides task operations and JSON persistence                              |
+| `main.py`      | Application entry point and interactive menu                                |
+| `tasks.json`   | Local task data file created by the application                              |
+| `requirements.txt` | Lists external dependencies (none currently)                            |
 | `test_todo.py` | Automated unit tests                                                         |
 | `README.md`    | Project documentation                                                        |
 | `.gitignore`   | Prevents unnecessary Python files such as `__pycache__` from being committed |
@@ -75,6 +85,7 @@ The application follows a simple modular structure where different functions are
 2. **Task Class**
 
    * Represents an individual task.
+   * Stores a unique task ID.
    * Stores the task title.
    * Stores the completion status.
    * Provides a method to mark the task as completed.
@@ -111,6 +122,12 @@ The application follows a simple modular structure where different functions are
    * Handles invalid task numbers.
    * Handles invalid menu choices.
 
+8. **Persistence**
+
+   * Loads tasks from `tasks.json` when the application starts.
+   * Saves tasks after each successful add, complete, or remove operation.
+   * Saves the current task list when the application exits.
+
 ## Program Flow
 
 ```text
@@ -144,7 +161,7 @@ Display Main Menu Again
 ```text
 START
 
-Create an empty task list
+Load tasks from tasks.json, or create an empty task list if it does not exist
 
 WHILE user has not selected Exit:
 
@@ -156,7 +173,7 @@ WHILE user has not selected Exit:
         Get task description
         Remove unnecessary spaces
         Validate task description
-        Create a task
+      Create a task with a unique ID
         Add task to task list
 
     ELSE IF choice is View Tasks:
@@ -177,7 +194,8 @@ WHILE user has not selected Exit:
         Validate task number
         Remove selected task
 
-    ELSE IF choice is Exit:
+   ELSE IF choice is Exit:
+      Save tasks to tasks.json
         Display exit message
         END PROGRAM
 
@@ -198,7 +216,7 @@ Clone the project from GitHub and open the project folder.
 Open a terminal in the project directory and run:
 
 ```bash
-python todo.py
+python main.py
 ```
 
 The main menu will appear:
@@ -215,6 +233,13 @@ The main menu will appear:
 ### 3. Follow the Menu
 
 Enter a number from `1` to `5` to perform an operation.
+
+## Persistence
+
+Tasks are stored in `tasks.json` in the project directory. The file is loaded
+when the application starts and updated after every successful change, so tasks
+remain available between runs. Each task is stored with its `id`, `title`, and
+`completed` fields.
 
 ## Example Usage
 
