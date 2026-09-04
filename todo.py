@@ -75,6 +75,28 @@ def complete_task(tasks):
     print("Task marked as completed!")
 
 
+def remove_task(tasks):
+    """Remove a selected task from the task list."""
+    if not tasks:
+        print("\nNo tasks found.")
+        return
+
+    view_tasks(tasks)
+
+    try:
+        task_number = int(input("Enter task number to remove: ").strip())
+    except ValueError:
+        print("Invalid input. Please enter a valid task number.")
+        return
+
+    if task_number < 1 or task_number > len(tasks):
+        print("Invalid task number.")
+        return
+
+    removed_task = tasks.pop(task_number - 1)
+    print(f"Task '{removed_task.title}' removed successfully!")
+
+
 def main():
     """Run the main To-Do application."""
     tasks = []
@@ -94,7 +116,7 @@ def main():
             complete_task(tasks)
 
         elif choice == "4":
-            print("Remove Task selected")
+            remove_task(tasks)
 
         elif choice == "5":
             print("Thank you for using the To-Do List Manager!")
